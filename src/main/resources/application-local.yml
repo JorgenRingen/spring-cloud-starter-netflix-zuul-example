@@ -1,0 +1,15 @@
+# Proxying with load-balancing
+zuul:
+  routes:
+    ws-api:
+      path: /my-api/**
+      serviceId: my-api
+
+my-api:
+  ribbon:
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList # can use eureka instead
+    listOfServers: http://localhost:8000 # comma-separated list
+    ConnectTimeout: 1000
+    ReadTimeout: 3000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
